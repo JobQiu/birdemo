@@ -63,6 +63,15 @@ public class BirdemoController {
     }
 
     @Autowired
+    private BirdemoRestController birdemoRestController;
+
+    @RequestMapping("random")
+    public String random(Model model) {
+        model.addAttribute("caption", birdemoRestController.caption());
+        return "index";
+    }
+
+    @Autowired
     RestTemplate restTemplate;
 
     public Map<String, String> postForImages(String des) {
@@ -73,7 +82,7 @@ public class BirdemoController {
 
 
         Map<String, String> map = new HashMap();
-        map.put("caption", des);
+        map.put("caption", des.toLowerCase());
         Map<String, Map<String, String>> map2 = restTemplate.postForObject(uri, map, Map.class);
         map = map2.get("bird");
         map.put("caption", des);

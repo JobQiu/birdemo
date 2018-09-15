@@ -7,6 +7,10 @@
     <link rel="icon" href="../../../../favicon.ico">
 
     <title>Birdemo</title>
+    <script type='text/javascript'
+            src='https://themes.getbootstrap.com/wp-includes/js/jquery/jquery.js?ver=1.12.4'></script>
+    <script type='text/javascript'
+            src='https://themes.getbootstrap.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1'></script>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -14,6 +18,23 @@
     <!-- Custom styles for this template -->
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
     <link href="blog.css" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            $("#random").click(function () {
+                alert("sth ")
+
+                $.post("rest/caption",
+                    {},
+                    function (data, status) {
+                        alert(data)
+                    });
+            });
+        });
+
+    </script>
 </head>
 
 <body style="">
@@ -22,8 +43,10 @@
     <header class="blog-header py-3">
         <div class="row flex-nowrap justify-content-between align-items-center">
 
-            <div class="col-5 text-center">
-                <h1 class="blog-header-logo text-dark" href="#">Text to Image - Birdemo</h1>
+            <div class="col-3">
+                <h1 class="blog-header-logo text-dark" href="#"><span
+                        style="color: #6f42c1">Bir</span><span style="color: #007bff">de</span><span
+                        style="color: #1e7e34">mo</span></h1>
             </div>
         </div>
     </header>
@@ -31,10 +54,7 @@
 
     <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
         <div class="col-md-6 px-0">
-            <h1 class="display-4 font-italic">Title of a longer featured blog post</h1>
-            <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and
-                efficiently about what's most interesting in this post's contents.</p>
-            <p class="lead mb-0"><a href="#" class="text-white font-weight-bold">Continue reading...</a></p>
+            <h1 class="display-4 font-italic">Convert text into a bird using Attentional-GAN</h1>
         </div>
     </div>
 
@@ -43,24 +63,28 @@
 <main role="main" class="container">
     <form action="request">
         <div class="form-group">
-            <label for="description">Describe a bird you want: </label>
+            <label for="description">Describe a bird you want: </label> <a href="random"
+                                                                           class="badge badge-warning"> Generate a
+            random description for me</a>
+
             <input type="text" th:value="${caption}" class="form-control" name="description" id="description"
                    placeholder="this bird is red with white and has a very short beak">
         </div>
 
-        <button type="button" class="btn btn-info">Random Description</button>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 
     <br>
     <h2>Result </h2>
-    It tooks <span th:text="${time}"></span>.<br>
+    It tooks <span th:text="${time}"></span>.( Usually it will take 8 seconds. )<br>
 
-    <img th:src="${map1}" class="img-fluid" alt="Responsive image">
+    <img th:if="${map1}" th:src="${map1}" style="width: 500px" class="img-fluid" alt="Responsive image">
     <br>
-    <img th:src="${large}" class="img-fluid" alt="Responsive image">
-    <img th:src="${map2}" class="img-fluid" alt="Responsive image">
-    <img th:src="${medium}" class="img-fluid" alt="Responsive image">
+
+    The attention of each word.
+    <img th:if="${map1}" th:src="${large}" class="img-fluid" alt="Responsive image">
+    <img th:if="${map1}" th:src="${map2}" class="img-fluid" alt="Responsive image">
+    <img th:if="${map1}" th:src="${medium}" class="img-fluid" alt="Responsive image">
 
 
     <br>
@@ -77,7 +101,7 @@
 
 <footer class="container">
     <p class="float-right"><a href="#">Back to top</a></p>
-    <p>© 2017-2018 Company, Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
+    <p>© 2017-2018 Congmin. · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
 </footer>
 
 <!-- Bootstrap core JavaScript
